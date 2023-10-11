@@ -74,13 +74,10 @@ def take_backup(src, dest):
             print(f"Source directory {dest} does not exist.")
             return
 
+        # Creating paths for all files in "src" directory & also for "dest"
         for file_name in os.listdir(src):
-            src_file = os.path.join(
-                src, file_name
-            )  # Creating paths for all files in "src" path
-            dest_file = os.path.join(
-                dest, file_name
-            )  # Creating paths for all files in "src" path
+            src_file = os.path.join(src, file_name)
+            dest_file = os.path.join(dest, file_name)
 
         # Handling Duplicate files in destination
         while os.path.exists(dest_file):
@@ -90,6 +87,9 @@ def take_backup(src, dest):
         print(f"File copied successfully from '{src}' to '{dest}'")
 
     except shutil.SameFileError as File_already_exists:  #
-        print(f"{File_already_exists}")
+        print(f"File already exists in Destination: {File_already_exists}")
     except Exception as e:
         print(f"An error occurred: {e}")
+
+
+take_backup(src_path, dest_path)
