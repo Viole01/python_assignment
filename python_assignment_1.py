@@ -93,8 +93,6 @@ def take_backup(src, dest):
             shutil.copy2(src_file, dest_file)  # Copying files
             print(f"File copied successfully from '{src}' to '{dest}'")
 
-    except shutil.SameFileError as File_already_exists:  #
-        print(f"File already exists in Destination: {File_already_exists}")
     except Exception as e:
         print(f"An error occurred: {e}")
 
