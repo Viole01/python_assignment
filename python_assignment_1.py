@@ -1,9 +1,7 @@
-import re
+import re, psutil
+
 
 # Q1. In DevOps, security is a crucial aspect, and ensuring strong passwords is essential. Create a Python script to check the password strength.
-passwd = input("Please enter your password: ")
-
-
 def check_password_strength(passwd):
     # Checking the length
     if len(passwd) < 8:
@@ -32,5 +30,29 @@ def provide_feedback(passwd):
         return "Please check your password, make sure it meets all the criteria."
 
 
-# Calling the function and printing the output
-print(provide_feedback(passwd))
+# Calling the function only when the script is run directly and printing the output
+if __name__ == "__main__":
+    passwd = input("Please enter your password: ")
+    print(provide_feedback(passwd))
+
+# Q2. As a DevOps engineer, it is crucial to monitor the health and performance of servers. Write a Python program to monitor the health of the CPU.
+
+
+# print(type(psutil.cpu_percent())) Checked the data type
+def monitor_cpu(threshold):
+    try:  # Using try block for error handling..
+        while True:  # Setting an infinite loop for application to run until interrupted
+            cpu_usage = psutil.cpu_percent(interval=1)
+            print(f"Current CPU usage is {cpu_usage}%")
+            if cpu_usage > threshold:
+                print(f"Alert: CPU usage exceeding {threshold}")
+
+    except KeyboardInterrupt:
+        print(f"\nMonitoring stopped by user")
+    except Exception as e:
+        print(f"An error occured: {e}")
+
+
+if __name__ == "__main__":
+    threshold = 75  # Setting default threshold value as 75%
+    monitor_cpu(threshold)
