@@ -1,4 +1,4 @@
-import re, psutil, sys  # re = regular expression library; sys = library used to access CLI arguments
+import re, psutil, sys, os, shutil, datetime  # re = regular expression module; sys = module used to access CLI arguments; os & shutil = Used to perform basic and high-level file operations respectively
 
 
 # Q1. In DevOps, security is a crucial aspect, and ensuring strong passwords is essential. Create a Python script to check the password strength.
@@ -19,7 +19,7 @@ def check_password_strength(passwd):
     special_chars = r"[!@#$%^&*(),.?\":{}|<>]"
     if not re.search(special_chars, passwd):
         return False
-
+    # If all conditions are satisfied..
     return True
 
 
@@ -42,15 +42,17 @@ if __name__ == "__main__":
 def monitor_cpu(threshold):
     try:  # Using try block for error handling..
         while True:  # Setting an infinite loop for application to run until interrupted
-            cpu_usage = psutil.cpu_percent(interval=1)
+            cpu_usage = psutil.cpu_percent(
+                interval=1
+            )  # Gives output after an interval of 1 Sec
             print(f"Current CPU usage is {cpu_usage}%")
             if cpu_usage > threshold:
                 print(f"Alert: CPU usage exceeding {threshold}")
 
-    except KeyboardInterrupt:
+    except KeyboardInterrupt:  # Outside Interruption
         print(f"\nMonitoring stopped by user")
 
-    except Exception as e:
+    except Exception as e:  # All remaining eroors
         print(f"An error occured: {e}")
 
 
@@ -64,7 +66,30 @@ dest_path = sys.argv[2]
 
 
 def take_backup(src, dest):
-    print(src, dest)
+    try:
+        if not os.path.exists(src):  # Checking if Source exists or not..
+            print(f"Source directory {src} does not exist.")
+            return
+        if not os.path.exists(dest):  # Checking if Destination exists or not..
+            print(f"Source directory {dest} does not exist.")
+            return
 
+        for file_name in os.listdir(src):
+            src_file = os.path.join(
+                src, file_name
+            )  # Creating paths for all files in "src" path
+            dest_file = os.path.join(
+                dest, file_name
+            )  # Creating paths for all files in "src" path
 
-take_backup(src_path, dest_path)
+        # Handling Duplicate files in destination
+        while os.path.exists(dest_file):
+            timestamp = datetime.now
+
+        shutil.copy2(src, dest)  # Copying files
+        print(f"File copied successfully from '{src}' to '{dest}'")
+
+    except shutil.SameFileError as File_already_exists:  #
+        print(f"{File_already_exists}")
+    except Exception as e:
+        print(f"An error occurred: {e}")
