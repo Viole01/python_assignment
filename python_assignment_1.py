@@ -1,4 +1,4 @@
-import re, psutil
+import re, psutil, sys  # re = regular expression library; sys = library used to access CLI arguments
 
 
 # Q1. In DevOps, security is a crucial aspect, and ensuring strong passwords is essential. Create a Python script to check the password strength.
@@ -49,6 +49,7 @@ def monitor_cpu(threshold):
 
     except KeyboardInterrupt:
         print(f"\nMonitoring stopped by user")
+
     except Exception as e:
         print(f"An error occured: {e}")
 
@@ -56,3 +57,14 @@ def monitor_cpu(threshold):
 if __name__ == "__main__":
     threshold = 75  # Setting default threshold value as 75%
     monitor_cpu(threshold)
+
+# Q4. Implement a Python script called backup.py that takes a source directory and a destination directory as command-line arguments.
+src_path = sys.argv[1]
+dest_path = sys.argv[2]
+
+
+def take_backup(src, dest):
+    print(src, dest)
+
+
+take_backup(src_path, dest_path)
