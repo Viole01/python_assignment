@@ -1,4 +1,5 @@
-import re, psutil, sys, os, shutil, datetime  # re = regular expression module; sys = module used to access CLI arguments; os & shutil = Used to perform basic and high-level file operations respectively
+import re, psutil, sys, os, shutil  # re = regular expression module; sys = module used to access CLI arguments; os & shutil = Used to perform basic and high-level file operations respectively
+from datetime import datetime  # Importing Class datetime from module datetime
 
 
 # Q1. In DevOps, security is a crucial aspect, and ensuring strong passwords is essential. Create a Python script to check the password strength.
@@ -71,7 +72,7 @@ def take_backup(src, dest):
             print(f"Source directory {src} does not exist.")
             return
         if not os.path.exists(dest):  # Checking if Destination exists or not..
-            print(f"Source directory {dest} does not exist.")
+            print(f"Destination directory {dest} does not exist.")
             return
 
         # Creating paths for all files in "src" directory & also for "dest"
@@ -79,12 +80,18 @@ def take_backup(src, dest):
             src_file = os.path.join(src, file_name)
             dest_file = os.path.join(dest, file_name)
 
-        # Handling Duplicate files in destination
-        while os.path.exists(dest_file):
-            timestamp = datetime.now
+            # Handling Duplicate files in destination
+            while os.path.exists(dest_file):
+                timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
+                file_name, file_extension = os.path.splitext(
+                    file_name
+                )  # Split file name & extension
+                dest_file = os.path.join(
+                    dest, f"{file_name}_{timestamp}{file_extension}"
+                )  # Renaming the file with appending the timestamp
 
-        shutil.copy2(src, dest)  # Copying files
-        print(f"File copied successfully from '{src}' to '{dest}'")
+            shutil.copy2(src_file, dest_file)  # Copying files
+            print(f"File copied successfully from '{src}' to '{dest}'")
 
     except shutil.SameFileError as File_already_exists:  #
         print(f"File already exists in Destination: {File_already_exists}")
