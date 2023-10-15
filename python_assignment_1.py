@@ -3,6 +3,9 @@ from datetime import datetime  # Importing Class datetime from module datetime
 
 
 # Q1. In DevOps, security is a crucial aspect, and ensuring strong passwords is essential. Create a Python script to check the password strength.
+passwd = input("Please enter your password: ")
+
+
 def check_password_strength(passwd):
     # Checking the length
     if len(passwd) < 8:
