@@ -34,8 +34,9 @@ def provide_feedback(passwd):
         return "Please check your password, make sure it meets all the criteria."
 
 
-# Calling the function only when the script is run directly and printing the output
-if __name__ == "__main__":
+if (
+    __name__ == "__main__"
+):  #  Calling the function only when the script is run directly and printing the output
     passwd = input("Please enter your password: ")
     print(provide_feedback(passwd))
 
