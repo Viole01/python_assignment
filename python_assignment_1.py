@@ -7,19 +7,14 @@ passwd = input("Please enter your password: ")
 
 
 def check_password_strength(passwd):
-    # Checking the length
     if len(passwd) < 8:
         return False
-    # Checking Uppercase
-    if not any(char.isupper() for char in passwd):
-        return False
-    # Checking Lowercase
-    if not any(char.islower() for char in passwd):
-        return False
-    # Checking Number
-    if not any(char.isdigit() for char in passwd):
-        return False
-    # Special Character Check
+    for char in passwd:
+        if char.isupper():
+            return False
+    for char in passwd:
+        if char.islower():
+            return False
     special_chars = r"[!@#$%^&*(),.?\":{}|<>]"
     if not re.search(special_chars, passwd):
         return False
